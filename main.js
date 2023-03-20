@@ -3,7 +3,7 @@ class Canva {
 
     constructor(){
         this.lienzo = document.querySelector('#lienzo')
-        this.lienzo.width = 700
+        this.lienzo.width = 1000
         this.lienzo.height = 300
         this.ctx = this.lienzo.getContext("2d")
         this.vectorFondo = []
@@ -29,15 +29,34 @@ class Canva {
 
     crearCoordenadasFondo(){
 
-        this.vectorFondo=[
-            { x: 0, y: this.lienzo.height - 10 },
-            { x: 100, y: this.lienzo.height - 10 },
-            { x: 150, y: this.lienzo.height - 50 },
-            { x: 200, y: this.lienzo.height - 10 },
-            { x: 300, y: this.lienzo.height - 10 },
-            { x: 400, y: this.lienzo.height - 20 },
-            { x: 500, y: this.lienzo.height - 10 },
-        ]
+        const long = this.lienzo.width
+        const npoints = 100
+        const dx = long/npoints
+        const humpHeight = 1
+        const x_hump_init = 400
+        const x_hump_end = 600
+    
+
+        for (let i = 0; i <= npoints; i++) {
+            const x = i*dx
+            let y
+            if (x < x_hump_init || x > x_hump_end) {
+                y = 0
+            } else {
+                y = humpHeight * Math.sin(Math.PI*(x - x_hump_init)/(x_hump_end - x_hump_init))
+            }
+            this.vectorFondo.push({x,y})
+        }
+
+        // this.vectorFondo=[
+        //     { x: 0, y: this.lienzo.height - 10 },
+        //     { x: 100, y: this.lienzo.height - 10 },
+        //     { x: 150, y: this.lienzo.height - 50 },
+        //     { x: 200, y: this.lienzo.height - 10 },
+        //     { x: 300, y: this.lienzo.height - 10 },
+        //     { x: 400, y: this.lienzo.height - 20 },
+        //     { x: 500, y: this.lienzo.height - 10 },
+        // ]
     }
 
     crearCoordenadasAgua(){
@@ -57,12 +76,12 @@ class Canva {
 
         this.ctx.beginPath()
         this.ctx.strokeStyle = "blue"
-        this.ctx.moveTo( this.vectorFondo[0].x, this.vectorFondo[0].y )
+        this.ctx.moveTo( this.vectorFondo[0].x, this.lienzo.height - this.vectorFondo[0].y * this.lienzo.height/5 )
 
         for (let i = 1; i < this.vectorFondo.length; i++) {
 
             let x = this.vectorFondo[i].x
-            let y = this.vectorFondo[i].y
+            let y = this.lienzo.height - this.vectorFondo[i].y * this.lienzo.height/5
             this.ctx.lineTo( x, y)
         }
 
