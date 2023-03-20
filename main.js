@@ -14,7 +14,6 @@ class Canva {
 
     inicializarLienzo(){
 
-        this.crearCoordenadasFondo()
         this.dibujarFondo()
         this.crearCoordenadasAgua()
         this.dibujarAgua()
@@ -33,30 +32,22 @@ class Canva {
         const npoints = 100
         const dx = long/npoints
         const humpHeight = 1
-        const x_hump_init = 400
-        const x_hump_end = 600
+        const x_hump_init = this.lienzo.width/5*2
+        const x_hump_end = this.lienzo.width/5*3
     
-
         for (let i = 0; i <= npoints; i++) {
+
             const x = i*dx
             let y
+
             if (x < x_hump_init || x > x_hump_end) {
                 y = 0
             } else {
                 y = humpHeight * Math.sin(Math.PI*(x - x_hump_init)/(x_hump_end - x_hump_init))
             }
-            this.vectorFondo.push({x,y})
-        }
 
-        // this.vectorFondo=[
-        //     { x: 0, y: this.lienzo.height - 10 },
-        //     { x: 100, y: this.lienzo.height - 10 },
-        //     { x: 150, y: this.lienzo.height - 50 },
-        //     { x: 200, y: this.lienzo.height - 10 },
-        //     { x: 300, y: this.lienzo.height - 10 },
-        //     { x: 400, y: this.lienzo.height - 20 },
-        //     { x: 500, y: this.lienzo.height - 10 },
-        // ]
+            this.vectorFondo.push({ x, y })
+        }
     }
 
     crearCoordenadasAgua(){
@@ -74,15 +65,18 @@ class Canva {
 
     dibujarFondo(){
 
+        this.crearCoordenadasFondo()
+
+        const coeficienteEscalacionY = 5
         this.ctx.beginPath()
         this.ctx.strokeStyle = "blue"
-        this.ctx.moveTo( this.vectorFondo[0].x, this.lienzo.height - this.vectorFondo[0].y * this.lienzo.height/5 )
+        this.ctx.moveTo( this.vectorFondo[0].x, this.lienzo.height - this.vectorFondo[0].y * this.lienzo.height/coeficienteEscalacionY )
 
         for (let i = 1; i < this.vectorFondo.length; i++) {
 
             let x = this.vectorFondo[i].x
-            let y = this.lienzo.height - this.vectorFondo[i].y * this.lienzo.height/5
-            this.ctx.lineTo( x, y)
+            let y = this.lienzo.height - this.vectorFondo[i].y * this.lienzo.height/coeficienteEscalacionY
+            this.ctx.lineTo( x, y )
         }
 
         this.ctx.stroke()
