@@ -14,16 +14,17 @@ class Canva {
 
     inicializarLienzo(){
 
+        this.crearCoordenadasFondo()
         this.dibujarFondo()
         this.crearCoordenadasAgua()
-        this.dibujarAgua()
+        // this.dibujarAgua()
         // this.dibujarBolita()
-        // setInterval(() => {
-        //     this.limpiarLienzo()
-        //     this.dibujarFondo()
-        //     this.dibujarAgua()
-        //     // this.dibujarBolita()
-        // }, 1000)
+        setInterval(() => {
+            this.limpiarLienzo()
+            this.dibujarFondo()
+            // this.dibujarAgua()
+            // this.dibujarBolita()
+        }, 1000)
     }
 
     crearCoordenadasFondo(){
@@ -64,8 +65,6 @@ class Canva {
     }
 
     dibujarFondo(){
-
-        this.crearCoordenadasFondo()
 
         const coeficienteEscalacionY = 5
         this.ctx.beginPath()
