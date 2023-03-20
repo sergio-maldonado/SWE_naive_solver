@@ -16,12 +16,16 @@ class Canva {
 
         this.crearCoordenadasFondo()
         this.dibujarFondo()
-        this.crearCoordenadasAgua()
+        // this.crearCoordenadasAgua_t0()
         // this.dibujarAgua()
         // this.dibujarBolita()
+        // dataOld = data_t0
         setInterval(() => {
             this.limpiarLienzo()
             this.dibujarFondo()
+            // dataOld => dataNew
+            // dibujo Agua(daNew)
+            // dataOld = DataNew
             // this.dibujarAgua()
             // this.dibujarBolita()
         }, 1000)
