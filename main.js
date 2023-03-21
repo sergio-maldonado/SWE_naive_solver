@@ -8,6 +8,7 @@ class Canva {
         this.ctx = this.lienzo.getContext("2d")
         this.vectorFondo = []
         this.vectorAgua = []
+        this.vectorAgua_t0 = []     // esto es agua en tiempo = 0 (inicial)
         // this.coordenadasBolita = { x: 10, y: 10}
         this.inicializarLienzo()
     }
@@ -31,6 +32,7 @@ class Canva {
         }, 1000)
     }
 
+    // propongo crear coordenadas agua iniciales aqui (pues esto no se llama una vez dentro del loop infinito)
     crearCoordenadasFondo(){
 
         const long = this.lienzo.width
@@ -44,6 +46,7 @@ class Canva {
 
             const x = i*dx
             let y
+            const eta_t0 = 3    // checa Non si esto tiene sentido
 
             if (x < x_hump_init || x > x_hump_end) {
                 y = 0
@@ -52,6 +55,7 @@ class Canva {
             }
 
             this.vectorFondo.push({ x, y })
+            this.vectorAgua_t0.push({ eta_t0 }) // checa Non si esto tiene sentido, es agua 
         }
     }
 
